@@ -1,0 +1,52 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.range-container {
+    &:hover {
+        .price-range {
+            visibility: visible;
+            opacity: 1;
+            transition: visibility 0s, opacity 0.25s linear
+        }
+    }
+}
+
+.range-div {
+    :first-child {
+        p:last-child {
+            text-align: center;
+        }
+    }
+
+    :last-child {
+        p:last-child {
+            text-align: center;
+        }
+    }
+}
+
+.selected {
+    background-color: rgb(100 116 139 / var(--tw-text-opacity)) !important
+}
+
+.display-header {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 0px;
+    transition: visibility 0s, opacity 0.25s linear, margin-top 0.5s linear;
+}
+
+.hide-header {
+    visibility: hidden;
+    opacity: 0;
+    margin-top: 2rem;
+    transition: visibility 0s, opacity 0.25s linear, margin-top 0.5s linear;
+}
+
+.switch-button {
+    ::before {
+        content: "test";
+        color: #ffffff
+    }
+}

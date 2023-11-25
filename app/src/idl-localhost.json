@@ -1,0 +1,622 @@
+{
+  "version": "0.1.0",
+  "name": "juicy_bets",
+  "instructions": [
+    {
+      "name": "initializeBetState",
+      "accounts": [
+        {
+          "name": "betState",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "betCreator",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "start",
+          "type": "u64"
+        },
+        {
+          "name": "duration",
+          "type": "u64"
+        },
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "snapshotPrice",
+          "type": "u128"
+        }
+      ]
+    },
+    {
+      "name": "placeWager",
+      "accounts": [
+        {
+          "name": "betState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "wagerDetail",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "bettorAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "betRange",
+          "type": "u8"
+        },
+        {
+          "name": "lamports",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "cancelWager",
+      "accounts": [
+        {
+          "name": "betState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "wagerDetail",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "bettor",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "closeLosingWager",
+      "accounts": [
+        {
+          "name": "betState",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "wagerDetail",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "bettor",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claimWinnings",
+      "accounts": [
+        {
+          "name": "betState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "wagerDetail",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "bettor",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "winningsAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "closeBetState",
+      "accounts": [
+        {
+          "name": "betState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "betCreator",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "end",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "cancelBetState",
+      "accounts": [
+        {
+          "name": "betState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "bettor",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "decideBetStateOutcome",
+      "accounts": [
+        {
+          "name": "betState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "betCreator",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "outcome",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "settleBetState",
+      "accounts": [
+        {
+          "name": "betState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "betCreator",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initializeUserAccount",
+      "accounts": [
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "accountOwner",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "closeUserAccount",
+      "accounts": [
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "accountOwner",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "depositIntoAccount",
+      "accounts": [
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "accountOwner",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "lamports",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdrawFromAccount",
+      "accounts": [
+        {
+          "name": "userAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "accountOwner",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "BetState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "symbol",
+            "type": "string"
+          },
+          {
+            "name": "creator",
+            "type": "publicKey"
+          },
+          {
+            "name": "runningTotalPool",
+            "type": "u64"
+          },
+          {
+            "name": "staticTotalPool",
+            "type": "u64"
+          },
+          {
+            "name": "negThreeAndUnderPool",
+            "type": "u64"
+          },
+          {
+            "name": "negThreeToNegTwoPool",
+            "type": "u64"
+          },
+          {
+            "name": "negTwoToNegOnePool",
+            "type": "u64"
+          },
+          {
+            "name": "negOneToZeroPool",
+            "type": "u64"
+          },
+          {
+            "name": "zeroToPosOnePool",
+            "type": "u64"
+          },
+          {
+            "name": "posOneToPosTwoPool",
+            "type": "u64"
+          },
+          {
+            "name": "posTwoToPosThreePool",
+            "type": "u64"
+          },
+          {
+            "name": "posThreeAndOverPool",
+            "type": "u64"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": "BetStateStatus"
+            }
+          },
+          {
+            "name": "startTime",
+            "type": "u64"
+          },
+          {
+            "name": "endTime",
+            "type": "u64"
+          },
+          {
+            "name": "snapshotPrice",
+            "type": "u128"
+          },
+          {
+            "name": "winningBetRange",
+            "type": {
+              "defined": "BetRange"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "WagerDetail",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bettor",
+            "type": "publicKey"
+          },
+          {
+            "name": "betState",
+            "type": "publicKey"
+          },
+          {
+            "name": "rangeStatus",
+            "type": {
+              "defined": "BetRange"
+            }
+          },
+          {
+            "name": "betValue",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "accountOwner",
+            "type": "publicKey"
+          },
+          {
+            "name": "wins",
+            "type": "u64"
+          },
+          {
+            "name": "losses",
+            "type": "u64"
+          },
+          {
+            "name": "activeWagers",
+            "type": {
+              "vec": "publicKey"
+            }
+          },
+          {
+            "name": "currentBalance",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "BetStateStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Open"
+          },
+          {
+            "name": "Closed"
+          },
+          {
+            "name": "Settled"
+          }
+        ]
+      }
+    },
+    {
+      "name": "BetRange",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "NotAvailable"
+          },
+          {
+            "name": "NegThreeAndUnder"
+          },
+          {
+            "name": "NegThreeToNegTwo"
+          },
+          {
+            "name": "NegTwoToNegOne"
+          },
+          {
+            "name": "NegOneToZero"
+          },
+          {
+            "name": "ZeroToPosOne"
+          },
+          {
+            "name": "PosOneToPosTwo"
+          },
+          {
+            "name": "PosTwoToPosThree"
+          },
+          {
+            "name": "PosThreeAndOver"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidBetCreator",
+      "msg": "You are not the creator of this bet"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidParty",
+      "msg": "The given value is not a valid party number entry."
+    },
+    {
+      "code": 6002,
+      "name": "InvalidBetOutcome",
+      "msg": "The given value is not a valid outcome for the bet."
+    },
+    {
+      "code": 6003,
+      "name": "InvalidBetRange",
+      "msg": "The given value is not a valid bet range entry"
+    },
+    {
+      "code": 6004,
+      "name": "NonWinningParty",
+      "msg": "Cannot carry out this action. You are not a part of the winning party for this bet."
+    },
+    {
+      "code": 6005,
+      "name": "FundsStillInPlay",
+      "msg": "Cannot carry out this action until all funds are withdrawn."
+    },
+    {
+      "code": 6006,
+      "name": "BetStillOpen",
+      "msg": "Cannot carry out this action while the bet is still open."
+    },
+    {
+      "code": 6007,
+      "name": "BetStillUndecided",
+      "msg": "Cannot carry out this action while the bet is still undecided on a winner."
+    },
+    {
+      "code": 6008,
+      "name": "BetAlreadyDecided",
+      "msg": "Cannot carry out this action when bet's outcome has already been decided."
+    },
+    {
+      "code": 6009,
+      "name": "NotBetCreator",
+      "msg": "Cannot carry out this action. You are not the creator of this bet."
+    },
+    {
+      "code": 6010,
+      "name": "BetIsClosedOrSettled",
+      "msg": "Cannot carry out this action when the bet is closed or is already settled."
+    },
+    {
+      "code": 6011,
+      "name": "NotAccountOwnerToPlaceWager",
+      "msg": "You cannot place a wager from this account because you are not the account owner."
+    },
+    {
+      "code": 6012,
+      "name": "NotAccountOwnerToClaimWinnings",
+      "msg": "You cannot claim winnings for this account because you are not the account owner."
+    },
+    {
+      "code": 6013,
+      "name": "ActiveWagerNotFound",
+      "msg": "Could not find that wager within your list of active wagers."
+    },
+    {
+      "code": 6014,
+      "name": "ActiveWagersEmpty",
+      "msg": "You do not have any active bets open."
+    },
+    {
+      "code": 6015,
+      "name": "PleaseClaimYourWinnings",
+      "msg": "This is a winning wager, please claim your winnings"
+    },
+    {
+      "code": 6016,
+      "name": "InvalidAccountOwner",
+      "msg": "You are not the creator of this account."
+    },
+    {
+      "code": 6017,
+      "name": "AccountBalanceNotEmpty",
+      "msg": "You must withdraw all of your betting funds to close your account."
+    },
+    {
+      "code": 6018,
+      "name": "InvalidDepositAmount",
+      "msg": "Invalid desposit amount."
+    },
+    {
+      "code": 6019,
+      "name": "InvalidWithdrawalAmount",
+      "msg": "Invalid withdrawal amount."
+    },
+    {
+      "code": 6020,
+      "name": "CannotWithdrawFromEmptyAccount",
+      "msg": "Cannot withdraw from an empty account."
+    }
+  ],
+  "metadata": {
+    "address": "CYpwqMgesShNFYrkLzpHC3NmaWqAXkiRZihAgekb535w"
+  }
+}

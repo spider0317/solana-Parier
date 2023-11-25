@@ -1,0 +1,15 @@
+[programs.devnet]
+juicy_bets = "2PiCS875GWsuwC8UmcSfGca7vBNHwR7cEyci2oyKG2xB"
+
+[programs.localnet]
+juicy_bets = "CYpwqMgesShNFYrkLzpHC3NmaWqAXkiRZihAgekb535w"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "devnet"
+wallet = "~/workspace/solana-projects/devnet-wallet.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
